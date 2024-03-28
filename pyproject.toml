@@ -1,0 +1,60 @@
+[project]
+name = "prompt-library"
+version = "0.1.0"
+description = "Prompt library"
+authors = [{ name = "Eric Wang", email = "wrqatw@gmail.com" }]
+dependencies = [
+  "aiohttp>=3.9.3",
+  "beautifulsoup4>=4.12.3",
+]
+readme = "README.md"
+requires-python = ">= 3.9"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+fetch_anthropic = "anthropic.fetch:run"
+
+[tool.rye]
+managed = true
+dev-dependencies = ["black>=24.3.0", "isort>=5.13.2"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build]
+include = ["src/*"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/anthropic"]
+
+
+[tool.isort]
+profile = "black"
+line_length = 120     # Keep it same with black.line-length
+multi_line_output = 3
+
+[tool.black]
+line-length = 120 # Too short with default=80
+target-version = ["py311"]
+skip-magic-trailing-comma = true
+include = '\.pyi?$'
+force-exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | migrations
+  | fixture
+  | fixtures
+)/
+'''
